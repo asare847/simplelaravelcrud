@@ -4,34 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Support\Facades\File;
 class StudentController extends Controller
 {
     public function index(){
         //fetching all students from the database
-        //$students = Student::orderBy('created_at','desc')->get();
         $students = Student::orderBy('created_at','desc')->paginate(10);
         //passing the $students data to index.blade.php file
-        return view('index',compact('students'));
+        return view('index',['students'=>$students]);
     }
 
     //
     public function create(){
-        return view('students.create');
+         $thecourse = Course::all();
+        return view('students.create',compact('thecourse'));
     }
 
     public function store(Request $request){
         /* field validation*/
         $this->validate($request,[
             'name' => 'required |string|max:255',
-            'email' => 'required|string|email|max:255',
-            'course' => 'required|max:50'
+            'birth_date'=> ['required', 'string'],
+            'email' => 'required|string|email|max:255'
         ]);
+
         /* Creating instance of Student*/
        $student = new Student;
        $student->name = $request->input('name');
+       $student->birth_date = $request->input('birth_date');
        $student->email = $request->input('email');
-       $student->course = $request->input('course');
+       $student->course_id  = $request->rt_id;  
        /*Handling the image*/
        if ($request->hasfile('profile_image')) {
             $file = $request->file('profile_image'); 
@@ -51,8 +54,9 @@ class StudentController extends Controller
     }
 
     public function edit($id){
+        $courses = Course::all();
         $student = Student::findOrFail($id);
-        return view('students.edit',compact('student'));
+        return view('students.edit',['student'=>$student,'courses'=>$courses]);
     }
 
     public function update(Request $request,$id){
@@ -63,12 +67,11 @@ class StudentController extends Controller
         $this->validate($request,[
             'name' => 'required |string|max:255',
             'email' => 'required|string|email|max:255',
-            'course' => 'required|max:50'
         ]);
 
         $student->name = $request->input('name');
         $student->email = $request->input('email');
-        $student->course = $request->input('course');
+        $student->course_id  = $request->rt_id;
         /*Handling the image*/
         if ($request->hasfile('profile_image')) {
             $destination = 'uploads/students/'.$student->profile_image;

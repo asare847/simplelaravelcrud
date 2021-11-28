@@ -23,12 +23,21 @@
                             <td>{{ $student->name }}</td>
                         </tr>
                         <tr>
+                            <th>Date of Birth</th>
+                            <td>{{date('l j F Y ',strtotime( $student->birth_date))}}</td>
+                        </tr>
+                       
+                        <tr>
                             <th>Email</th>
                             <td>{{ $student->email }}</td>
                         </tr>
                         <tr>
                             <th>Course</th>
-                            <td>{{ $student->course }}</td>
+                            <td>{{ $student->course->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Course Details</th>
+                            <td>{{ $student->course->description }}</td>
                         </tr>
                         <tr>
                             <th>Image</th>

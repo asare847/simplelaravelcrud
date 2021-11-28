@@ -26,6 +26,13 @@
                                 </span>
                                 @enderror
                         </div>
+                        <div class="form-group ">
+                            <label for="" class="col-md-4 col-form-label text-md-right">Birth Date</label>
+                            <div class="">
+                                <input id="birth_date" type="text" class="form-control datepicker  @error('date_birth') is-invalid @enderror" name="birth_date" required autocomplete="birth_date" value="{{$student->birth_date}}" placeholder="--select-">
+                                 
+                            </div>
+                            
                         <div class="form-group">
                             <label for="email">Student Email </label>
                             <input type="email" class="form-control" name="email" value="{{$student->email }}" id="exampleFormControlInput1" placeholder="name@example.com">
@@ -35,15 +42,18 @@
                             </span>
                              @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="course">Course </label>
-                            <input type="text" class="form-control" name="course"  value="{{$student->course }}"id="course" placeholder="Eg.Biology">
-                            @error('email')
-                            <span class="alert alert-course" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+                         <tr>
+                                 <th>Select Course</th>
+                                          <td>
+                                            <select name="rt_id" class="form-control">
+                                              <option value="0">--select--</option>
+                                              @foreach($courses as $course)
+                                                <option @if($student->course_id ==$course->id) selected @endif value="{{$course->id}}">{{$course->name}}</option>
+
+                                              @endforeach
+                                            </select>
+                                          </td>
+                             </tr>
                         <div class="form-group">
                             <label for="photo">Photo </label>
                             <input type="file" class="form-control" name="profile_image" id="poto" >
