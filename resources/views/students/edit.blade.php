@@ -59,7 +59,7 @@
                             <input type="file" class="form-control" name="profile_image" id="poto" >
                         </div>
                         <div class="form-group">
-                        <img src="{{ asset('uploads/students/'.$student->profile_image) }}" width="300px">
+                        <img  src="{{ Storage::disk('s3')->temporaryUrl('uploads/students/'.$student->profile_image, '+2 minutes') }}" width="300px">
                         </div>
 
                         <div class="form-group">

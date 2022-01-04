@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td><img src="{{ asset('uploads/students/'.$student->profile_image) }}" width="200px"></td>
+                            <td><img  src="{{ Storage::disk('s3')->temporaryUrl('uploads/students/'.$student->profile_image, '+2 minutes') }}" width="200px"></td>
                         </tr>
                         </tbody>
                     </table>

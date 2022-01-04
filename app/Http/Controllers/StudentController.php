@@ -40,7 +40,7 @@ class StudentController extends Controller
             $file = $request->file('profile_image'); 
             $extention = $file->getClientOriginalExtension(); // getting the extention of image jpg,png etc
             $filename = time().'.'.$extention; 
-            $file->move('uploads/students/',$filename); //move image to this path 
+            $file->storeAs('uploads/students/',$filename,'s3'); //move image to this path 
             $student->profile_image = $filename; 
        }
         $student->save(); // save it into database
@@ -84,7 +84,7 @@ class StudentController extends Controller
              //appending the image extention to the image file
              $filename = time().'.'.$extention; 
              //file path the images would be stored in 
-             $file->move('uploads/students/',$filename);
+             $file->storeAs('uploads/students/',$filename,'s3');
              $student->profile_image = $filename;
         }
         $student->update(); // updates the students information in the database

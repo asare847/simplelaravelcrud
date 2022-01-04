@@ -37,7 +37,7 @@
                                 <td>{{date('l j F Y ',strtotime( $student->birth_date))}}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->course->name }}</td>
-                                <td><img src="{{ asset('uploads/students/'.$student->profile_image) }}" width="80px"></td>
+                                <td><img  src="{{ Storage::disk('s3')->temporaryUrl('uploads/students/'.$student->profile_image, '+2 minutes') }}" width="80px"></td>
                                 <td><a href="{{ url('students/show/'.$student->id) }}" class="btn btn-outline-secondary "><i class="bi bi-eye" alt="edit"></i></a></td>
                                 <td><a href="{{ url('students/edit/'.$student->id) }}" class="btn  btn-outline-primary "><i class="bi bi-pencil" alt="edit"></i></a></td>
                                 <td><a  onclick="return confirm('Are you sure you want do delete this data?')" href="{{ url('students/delete/'.$student->id) }}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
